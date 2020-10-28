@@ -36,3 +36,12 @@ cd googlenet
 python googlenet.py  // do inference and save model into .pth firstly.
 python inference.py // then do inference and save weights file
 ```
+
+For example, modified resnet,
+
+```
+copy AOI_resnet/train_python/model to resnet/resnet50
+cd resnet50
+modify num_classes and path to weight
+python inference.py // then do inference and save weights file
+```

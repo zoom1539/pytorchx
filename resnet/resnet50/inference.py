@@ -4,20 +4,22 @@ import torchvision
 import os
 import struct
 from torchsummary import summary
+from model import ResNet
 
 def main():
     print('cuda device count: ', torch.cuda.device_count())
-    net = torch.load('resnet50.pth')
+    net = ResNet(num_classes = 6)
+    net.load_state_dict(torch.load('net_051.pth'))
     net = net.to('cuda:0')
     net.eval()
     print('model: ', net)
     #print('state dict: ', net.state_dict().keys())
-    tmp = torch.ones(1, 3, 224, 224).to('cuda:0')
+    tmp = torch.ones(1, 3, 64, 64).to('cuda:0')
     print('input: ', tmp)
     out = net(tmp)
     print('output:', out)
 
-    summary(net, (3,224,224))
+    summary(net, (3,64,64))
     #return
     f = open("resnet50.wts", 'w')
     f.write("{}\n".format(len(net.state_dict().keys())))
