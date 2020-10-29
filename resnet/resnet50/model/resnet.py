@@ -7,13 +7,8 @@ class ResNet(nn.Module):
         super(ResNet, self).__init__()
         self.resnet50 = models.resnet50(pretrained = True)
         fc_inputs = self.resnet50.fc.in_features
-        self.resnet50.fc = nn.Sequential(
-            nn.Linear(fc_inputs, 256),
-            nn.ReLU(),
-            nn.Dropout(0.4),
-            nn.Linear(256, num_classes),
-            nn.LogSoftmax(dim=1)
-)
+        self.resnet50.fc = nn.Linear(fc_inputs, num_classes)
+
 
     def forward(self, x):
         output = self.resnet50(x)
