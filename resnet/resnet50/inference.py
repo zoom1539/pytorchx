@@ -11,13 +11,13 @@ import cv2
 def main():
     print('cuda device count: ', torch.cuda.device_count())
     # net = ResNet(num_classes = 6)
-    net = torch.load('net_051_all.pth')
+    net = torch.load('net_401_all.pth')
     net = net.to('cuda:0')
     net.eval()
     print('model: ', net)
     #print('state dict: ', net.state_dict().keys())
 
-    img = cv2.imread('/home/ubuntu/Documents/resnet/AOI_resnet/data/test/signs_3/img_0097.png')
+    img = cv2.imread('/home/zhumh/code/mag_detect/AOI_resnet/data/test/0.bmp')
     transform = transforms.Compose([
             transforms.ToTensor()  # numpy [H, W, C] [0,255] => tensor [C, H, W] [0.0, 1.0]
             ])
@@ -34,7 +34,7 @@ def main():
     out = net(tmp)
     print('output:', out)
 
-    summary(net, (3,224,224))
+    summary(net, (3,64,64))
     #return
     f = open("resnet50.wts", 'w')
     f.write("{}\n".format(len(net.state_dict().keys())))
